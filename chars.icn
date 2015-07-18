@@ -1,0 +1,6 @@
+procedure main()
+	hexDigit := "0123456789ABCDEF"
+	hex := create(!hexDigit || !hexDigit)
+	char := create(!&cset)
+	while write(@hex, "\t", @char)
+end

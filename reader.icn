@@ -1,0 +1,182 @@
+package reader
+
+global
+   north, south, east, west, northsouth, eastwest,
+   ns, ew, sixty, ninety, digitx, digit2,
+   degrees, minutes, seconds, degree, bearing, 
+   units, distance, thence,
+   
+   DEGREE
+
+procedure reader(rawDescription)
+   local
+      tokenChars,
+      points,
+      bDist,
+      file,
+      line,
+      l, 
+      th, 
+      token, 
+      direction, 
+      dist, 
+      direc, 
+      bound, 
+      newPoint, 
+      distError, 
+      error,
+		dataList
+
+   DEGREE := "*"
+   tokenChars := &letters ++ &digits ++ '\'\"%.,'
+   initializePatterns()
+	dataList := []
+   points := []
+   put(points, Point())
+   bDist := 0
+   put(dataList, "N " || points[1].northing || "\tE " || points[1].easting)
+   every line := !rawDescription do {
+      l := 0
+      th := 0
+      line ? {
+         while tab(upto(tokenChars)) do {
+            if token := =thence then {
+               l +:= 1
+               th := 1
+               }
+            else {
+               token := tab(many(tokenChars))
+               }
+            if th = 1 then {
+               direction := &null
+               dist := &null 
+               while (tab(upto(tokenChars)) & /dist) do {
+                  if \direction then dist := =distance
+                  else direction := =bearing
+                  tab(upto(" "))
+                  }
+
+               direc := Bearing(ns, degrees, minutes, seconds, ew)
+               bound := Boundary(direc, dist)
+               put(dataList, l || "\t" || bound.bearing.ns || " " || bound.bearing.deg || DEGREE || bound.bearing.min || "\'" || bound.bearing.sec || "\" " || bound.bearing.ew || "\t" || dist)
+               
+               newPoint := Point()
+               newPoint.calcLocation(points[l], bound)
+               put(points, newPoint)
+               bDist +:= bound.dist
+               put(dataList, "N " || points[l + 1].northing || "\tE " || points[l + 1].easting)
+               th := 0
+               }
+            }
+         }
+      }
+
+    distError := sqrt((points[1].northing - points[*points].northing) ^ 2 +  (points[1].easting - points[*points].easting) ^ 2)
+    error := 1 / (distError / bDist)
+    put(dataList, "\nDistance Error: " || distError)
+    put(dataList, "Closure Error: 1:" || error)
+	return dataList
+end
+
+procedure initializePatterns()
+   north := "North" .| Any("Nn")
+   south := "South" .| Any("Ss") 
+   east := "East" .| Any("Ee") 
+   west := "West" .| Any("Ww") 
+   northsouth := north .| south
+   eastwest := east .| west
+   sixty := (Any("012345")) || Any(&digits)
+   ninety := (Any(" 012345678") || Any(&digits)) .| "90"
+
+   digitx := Span(&digits)
+   digit2 := Any(&digits) || Any(&digits)
+
+   degree := "%%d" .| "d" .| "\xf8"
+   bearing := northsouth => ns || " " || ninety => degrees || degree || sixty => minutes || "\'" || sixty => seconds || "\" " || eastwest => ew
+   units := "feet" .| "rods" .| "chains" .| "links" .| "meters"
+   distance := (digitx || "." || digit2 || " " || units) .|
+         (digitx || "." || Any(&digits) || " " || units) .|
+         (digitx || " " || units) .|
+         ("0." || digit2 || " " || units) .|
+         ("0." || Any(&digits) || " " || units) .|
+         ("." || digit2 || " " || units) .|
+         ("." || Any(&digits) || " " || units)
+   thence := "thence" .| "Thence"
+end
+
+procedure bearingToRad(bearng)
+   local
+      degr
+
+   bearng.ns ? {
+      if =north then {
+         degr := 0.0
+         bearng.ew ? 
+            if =east then degr := bearng.deg
+            else degr -:= bearng.deg
+         } 
+      else {
+         degr := 180.0
+         bearng.ew ? 
+            if =east then degr -:= bearng.deg
+            else degr +:= bearng.deg
+         }
+      }
+   return toRad(degr, minutes, seconds)
+end
+
+procedure toRad(deg, mins, secs)
+   local
+      degr,
+      minutes,
+      seconds
+		
+   if /mins then mins := 0.0
+   if /secs then secs := 0.0 
+   degr := 90.0 - deg
+   if degr < 0.0 then degr +:= 360.0 
+   minutes := 60.0 - mins
+   if minutes = 60.0 then minutes := 0.0
+   seconds := 60.0 - secs
+   if seconds = 60 then seconds := 0.0
+   if \minutes then degr +:= minutes / 60.0
+   if \seconds then degr +:= seconds / 3600.0
+   return (degr / 180.0) * &pi
+end
+
+class Boundary(bearing, radians, dist)
+   method getDist(d)
+      local 
+         ch,
+         distan
+         
+      ch := &digits ++ '.'
+      d ? distan := tab(many(ch))
+      dist := integer(distan)
+   end
+
+initially(bearng, d)
+   bearing := bearng
+   radians := bearingToRad(bearing)
+   dist := getDist(d)
+end
+
+class Bearing(ns, deg, min, sec, ew)
+
+initially(norsou, degr, mins, secs, easwes)
+   ns := norsou
+   deg := degr
+   min := mins
+   sec := secs
+   ew := easwes
+end
+
+class Point(northing, easting)
+   method calcLocation(parent, bound)
+      northing := parent.northing + bound.dist * cos(bound.radians)
+      easting := parent.easting + bound.dist * sin(bound.radians)
+   end
+initially()
+   northing := 10000.00
+   easting := 5000.00
+end

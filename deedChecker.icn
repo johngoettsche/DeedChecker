@@ -1,0 +1,147 @@
+import reader
+
+link graphics
+link vsetup
+
+global
+	current_file,
+	raw_description,
+
+	vidgets,
+	root,
+	listText,
+	listTextContents
+
+procedure main()
+	init()
+	process()
+end
+
+procedure init()
+	listTextContents := []
+	vidgets := ui()
+	
+	root := vidgets["root"]
+	listText := vidgets["listText"]
+end
+
+procedure process()
+	repeat {
+		repeat{
+			while (*Pending() > 0) do {
+				ProcessEvent(root, shortcuts)
+				if \reset then break break next
+			}
+		}
+	}
+end
+
+procedure openFile()
+	local
+		data_list
+
+	repeat {
+		case OpenDialog() of {
+			"Okay" : {
+				if input := open(dialog_value) then {
+					current_file := dialog_value
+					data_list :=[]
+					while put(data_list, read(input))
+					close(input)
+					return data_list
+				}
+				else Notice("Cannot open file.")
+			}
+			"Cancel" : fail
+		}
+	}
+end
+
+procedure saveFile(data_list, current_file)
+	repeat {
+		case SaveDialog("Save before quitting?", current_file) of {
+			"Yes" : {
+				if output := open(current_file, "w") then {
+					every line := !data_list do writeln(line)
+					exit()
+				}
+				else Notice("Cannot open file for writing.")
+			}
+			"No" : exit()
+			"Cancel" : fail
+		}
+	}
+end
+
+procedure file_cb(vidget, menu)
+   case menu[1] of {
+      "Open @O": {
+      	raw_description := openFile()
+      	if \raw_description then {
+      		VSetItems(listText, raw_description)
+      		every write(stdout, !raw_description)
+      	}
+      }
+      "Save @S": {
+      	data_list := [1, 2, 3, 4]
+      	current_file := "test.txt"
+      	saveFile(data_list, current_file)
+      }
+      "Exit @X":   exit()
+   }
+   return
+end
+
+procedure parse_cb(vidget, menu)
+   case menu[1] of {
+      "Parse @P": {
+			#change to raw_description and recieve point list
+			VSetItems(listText, reader(raw_description))
+		}
+   }
+   return
+end
+
+procedure listText_cb(vidget, port)
+
+end
+
+#  Check for keyboard shortcuts.
+procedure shortcuts(e)
+   case &meta & map(e) of {			# fold case
+      "o":  {
+      	raw_description := openFile()
+      	if \raw_description then {
+      		VSetItems(listText, raw_description)
+      		every write(stdout, !raw_description)
+      	}
+      }
+      "s": {
+      	data_list := [1, 2, 3, 4]
+      	current_file := "test.txt"
+      	saveFile(data_list, current_file)
+      }
+      "x":  exit()
+      "p": VSetItems(listText, reader(raw_description))
+   }
+   return
+end
+
+#===<<vib:begin>>===	modify using vib; do not remove this marker line
+procedure ui_atts()
+   return ["size=649,433", "bg=pale gray"]
+end
+
+procedure ui(win, cbk)
+return vsetup(win, cbk,
+   [":Sizer:::0,0,649,433:",],
+   ["fontname:Text::51:5,616,444,17:font name: \\=",setfont],
+   ["listText:List:r::2,21,340,410:",listText_cb],
+   ["menuFile:Menu:pull::0,0,36,19:File",file_cb,
+      ["Open @O","Save @S","Exit @X"]],
+   ["parse:Menu:pull::38,0,43,19:Parse",parse_cb,
+      ["Parse @P"]],
+   ["region:Rect:grooved::341,20,300,300:",region_cb],
+   )
+end
+#===<<vib:end>>===	end of section maintained by vib

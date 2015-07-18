@@ -1,0 +1,153 @@
+import reader
+
+link graphics
+link vsetup
+
+global
+	current_file,
+	raw_description,
+
+	vidgets,
+	root,
+	size,
+	port,
+	canvas
+
+procedure main()
+	init()
+	#whatever
+	#GetEvents(vidgets["root"], , shortcuts)
+	repeat {
+		#set up new display
+		repeat {
+			#process pendiing events
+			#break out of inner loop if new display needs to be set up
+			#
+		}
+	}
+end
+
+procedure init()
+	vidgets := ui()
+	
+	root := vidgets["root"]
+	size := vidgets["region"].uw
+	if vidgets["region"].uh ~= size then {
+		Notice("improper interface layout.")
+		exit()
+	}
+	port := vidgets["port"]
+	canvas := vidgets["canvas"]
+end
+
+procedure openFile()
+	local
+		data_list
+
+	repeat {
+		case OpenDialog() of {
+			"Okay" : {
+				if input := open(dialog_value) then {
+					current_file := dialog_value
+					data_list :=[]
+					while put(data_list, read(input))
+					close(input)
+					return data_list
+				}
+				else Notice("Cannot open file.")
+			}
+			"Cancel" : fail
+		}
+	}
+end
+
+procedure saveFile(data_list, current_file)
+	repeat {
+		case SaveDialog("Save before quitting?", current_file) of {
+			"Yes" : {
+				if output := open(current_file, "w") then {
+					every write(output, !data_list)
+					exit()
+				}
+				else Notice("Cannot open file for writing.")
+			}
+			"No" : exit()
+			"Cancel" : fail
+		}
+	}
+end
+
+procedure win_cb(text)
+	WWrite(text)
+end
+
+procedure file_cb(vidget, menu)
+   case menu[1] of {
+      "open  @O": raw_description := openFile()
+      "save  @S": {
+      	data_list := [1, 2, 3, 4]
+      	current_file := "test.txt"
+      	saveFile(data_list, current_file)
+      }
+      "quit  @Q":   exit()
+   }
+   return
+end
+
+procedure parse_cb(vidget, menu)
+   case menu[1] of {
+      "parse  @P": {
+			#change to raw_description and recieve point list
+			deedReport := reader(current_file)
+			x := 5
+			y := 40
+			every line := !deedReport do{
+				writeln(port, line)
+			}
+		}
+   }
+   return
+end
+
+procedure port_cb(vidget, port)
+
+end
+
+
+#  Check for keyboard shortcuts.
+procedure shortcuts(e)
+   case &meta & map(e) of {			# fold case
+      "o":  raw_description := openFile()
+      "s": {
+      	data_list := [1, 2, 3, 4]
+      	current_file := "test.txt"
+      	saveFile(data_list, current_file)
+      }
+      "q":  exit()
+   }
+   return
+end
+
+procedure writeln(vidget, value)
+	
+end
+
+#===<<vib:begin>>===	modify using vib; do not remove this marker line
+procedure ui_atts()
+   return ["size=649,433", "bg=pale gray"]
+end
+
+procedure ui(win, cbk)
+return vsetup(win, cbk,
+   [":Sizer:::0,0,649,433:",],
+   ["fileMenu:Menu:pull::1,1,36,19:File",file_cb,
+      ["open  @O","save  @S","quit  @Q"]],
+   ["fontname:Text::51:5,616,444,17:font name: \\=",setfont],
+   ["parse:Menu:pull::38,1,43,19:Parse",parse_cb,
+      ["parse  @P"]],
+   ["vbar:Scrollbar:v:1:302,27,18,400:0.0,1.0,0.5",vert_cb],
+   ["canvas:Rect:grooved::325,28,320,350:",],
+   ["port:Rect:sunken::2,27,300,400:",],
+   )
+end
+#===<<vib:end>>===	end of section maintained by vib

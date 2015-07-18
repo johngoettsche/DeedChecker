@@ -1,0 +1,3023 @@
+version	U12.1.00
+uid	reader.u1-1436488954-0
+record	reader__Boundary__state,5
+	0,__s
+	1,__m
+	2,bearing
+	3,radians
+	4,dist
+record	reader__Boundary__methods,2
+	0,getDist
+	1,initially
+record	reader__Bearing__state,7
+	0,__s
+	1,__m
+	2,ns
+	3,deg
+	4,min
+	5,sec
+	6,ew
+record	reader__Bearing__methods,1
+	0,initially
+record	reader__Point__state,4
+	0,__s
+	1,__m
+	2,northing
+	3,easting
+record	reader__Point__methods,2
+	0,calcLocation
+	1,initially
+impl	local
+global	44
+	0,000001,reader__north,0
+	1,000001,reader__south,0
+	2,000001,reader__east,0
+	3,000001,reader__west,0
+	4,000001,reader__northsouth,0
+	5,000001,reader__eastwest,0
+	6,000001,reader__ns,0
+	7,000001,reader__ew,0
+	8,000001,reader__sixty,0
+	9,000001,reader__ninety,0
+	10,000001,reader__digitx,0
+	11,000001,reader__digit2,0
+	12,000001,reader__degrees,0
+	13,000001,reader__minutes,0
+	14,000001,reader__seconds,0
+	15,000001,reader__degree,0
+	16,000001,reader__bearing,0
+	17,000001,reader__units,0
+	18,000001,reader__distance,0
+	19,000001,reader__thence,0
+	20,000005,reader__reader,1
+	21,000005,reader__initializePatterns,0
+	22,000005,reader__bearingToRad,1
+	23,000005,reader__toRad,3
+	24,000005,reader__Boundary_getDist,2
+	25,000005,reader__Boundary_initially,3
+	26,000011,reader__Boundary__state,5
+	27,000011,reader__Boundary__methods,2
+	28,000001,reader__Boundary__oprec,0
+	29,000005,reader__Boundary,2
+	30,000005,reader__Boundaryinitialize,0
+	31,000005,reader__Bearing_initially,6
+	32,000011,reader__Bearing__state,7
+	33,000011,reader__Bearing__methods,1
+	34,000001,reader__Bearing__oprec,0
+	35,000005,reader__Bearing,5
+	36,000005,reader__Bearinginitialize,0
+	37,000005,reader__Point_calcLocation,3
+	38,000005,reader__Point_initially,1
+	39,000011,reader__Point__state,4
+	40,000011,reader__Point__methods,2
+	41,000001,reader__Point__oprec,0
+	42,000005,reader__Point,0
+	43,000005,reader__Pointinitialize,0
+
+proc reader__reader
+	local	0,001000,args
+	local	1,000020,tokenChars
+	local	2,000020,points
+	local	3,000020,bDist
+	local	4,000020,file
+	local	5,000020,line
+	local	6,000020,l
+	local	7,000020,th
+	local	8,000020,token
+	local	9,000020,direction
+	local	10,000020,dist
+	local	11,000020,direc
+	local	12,000020,bound
+	local	13,000020,newPoint
+	local	14,000020,distError
+	local	15,000020,error
+	local	16,000000,reader__initializePatterns
+	local	17,000000,put
+	local	18,000000,reader__Point
+	local	19,000000,write
+	local	20,000000,open
+	local	21,000000,stop
+	local	22,000000,tab
+	local	23,000000,upto
+	local	24,000000,reader__thence
+	local	25,000000,many
+	local	26,000000,reader__distance
+	local	27,000000,reader__bearing
+	local	28,000000,reader__Bearing
+	local	29,000000,reader__ns
+	local	30,000000,reader__degrees
+	local	31,000000,reader__minutes
+	local	32,000000,reader__seconds
+	local	33,000000,reader__ew
+	local	34,000000,reader__Boundary
+	local	35,000000,sqrt
+	con	0,020000,5,047,042,045,056,054
+	con	1,002000,1,0
+	con	2,010000,1,011
+	con	3,002000,1,1
+	con	4,010000,1,162
+	con	5,010000,12,157,160,145,156,040,146,141,151,154,145,144,041
+	con	6,010000,2,116,040
+	con	7,010000,3,011,105,040
+	con	8,010000,1,040
+	con	9,002000,1,2
+	con	10,010000,17,012,104,151,163,164,141,156,143,145,040,105,162,162,157,162,072,040
+	con	11,010000,18,122,145,154,141,164,151,166,145,040,105,162,162,157,162,072,040,061,072
+	declend
+	filen	reader.icn
+	line	9
+	colm	12
+	synt	any
+	mark	L1
+	pnull
+	var	1
+	pnull
+	pnull
+	line	27
+	colm	18
+	synt	any
+	keywd	letters
+	line	27
+	colm	30
+	synt	any
+	keywd	digits
+	line	27
+	colm	27
+	synt	any
+	unions
+	cset	0
+	line	27
+	colm	38
+	synt	any
+	unions
+	line	27
+	colm	15
+	synt	any
+	asgn
+	unmark
+lab L1
+	mark	L2
+	var	16
+	line	28
+	colm	30
+	synt	any
+	invoke	0
+	unmark
+lab L2
+	mark	L3
+	pnull
+	var	2
+	pnull
+	line	29
+	colm	14
+	synt	any
+	llist	0
+	line	29
+	colm	11
+	synt	any
+	asgn
+	unmark
+lab L3
+	mark	L4
+	var	17
+	var	2
+	var	18
+	line	30
+	colm	29
+	synt	any
+	invoke	0
+	line	30
+	colm	7
+	synt	any
+	invoke	2
+	unmark
+lab L4
+	mark	L5
+	pnull
+	var	3
+	int	1
+	line	31
+	colm	10
+	synt	any
+	asgn
+	unmark
+lab L5
+	mark	L6
+	var	19
+	pnull
+	var	0
+	int	1
+	line	32
+	colm	14
+	synt	any
+	subsc
+	str	2
+	pnull
+	var	0
+	int	3
+	line	32
+	colm	29
+	synt	any
+	subsc
+	line	32
+	colm	9
+	synt	any
+	invoke	3
+	unmark
+lab L6
+	mark	L7
+	pnull
+	var	4
+	mark	L8
+	var	20
+	pnull
+	var	0
+	int	3
+	line	33
+	colm	21
+	synt	any
+	subsc
+	str	4
+	line	33
+	colm	16
+	synt	any
+	invoke	2
+	line	33
+	colm	31
+	synt	any
+	esusp
+	goto	L9
+lab L8
+	var	21
+	str	5
+	line	33
+	colm	37
+	synt	any
+	invoke	1
+lab L9
+	line	33
+	colm	9
+	synt	any
+	asgn
+	unmark
+lab L7
+	mark	L10
+	var	19
+	pnull
+	pnull
+	pnull
+	str	6
+	pnull
+	pnull
+	var	2
+	int	3
+	line	34
+	colm	24
+	synt	any
+	subsc
+	line	34
+	colm	27
+	synt	any
+	field	northing
+	line	34
+	colm	15
+	synt	any
+	cat
+	str	7
+	line	34
+	colm	37
+	synt	any
+	cat
+	pnull
+	pnull
+	var	2
+	int	3
+	line	34
+	colm	56
+	synt	any
+	subsc
+	line	34
+	colm	59
+	synt	any
+	field	easting
+	line	34
+	colm	47
+	synt	any
+	cat
+	line	34
+	colm	9
+	synt	any
+	invoke	1
+	unmark
+lab L10
+	mark	L11
+	line	35
+	colm	4
+	synt	every
+	mark0
+	pnull
+	var	5
+	pnull
+	var	4
+	line	35
+	colm	18
+	synt	any
+	bang
+	line	35
+	colm	15
+	synt	any
+	asgn
+	pop
+	mark0
+	mark	L14
+	pnull
+	var	6
+	int	1
+	line	36
+	colm	9
+	synt	any
+	asgn
+	unmark
+lab L14
+	mark	L15
+	pnull
+	var	7
+	int	1
+	line	37
+	colm	10
+	synt	any
+	asgn
+	unmark
+lab L15
+	var	5
+	line	38
+	colm	12
+	synt	any
+	bscan
+lab L16
+	line	39
+	colm	10
+	synt	while
+	mark0
+	var	22
+	var	23
+	var	1
+	line	39
+	colm	24
+	synt	any
+	invoke	1
+	line	39
+	colm	19
+	synt	any
+	invoke	1
+	unmark
+	mark	L16
+	mark	L19
+	line	40
+	colm	13
+	synt	ifelse
+	mark	L20
+	pnull
+	var	8
+	pnull
+	var	24
+	line	40
+	colm	25
+	synt	any
+	tabmat
+	line	40
+	colm	22
+	synt	any
+	asgn
+	unmark
+	mark	L22
+	pnull
+	var	6
+	dup
+	int	3
+	line	41
+	colm	18
+	synt	any
+	plus
+	asgn
+	unmark
+lab L22
+	pnull
+	var	7
+	int	3
+	line	42
+	colm	19
+	synt	any
+	asgn
+	goto	L21
+lab L20
+	pnull
+	var	8
+	var	22
+	var	25
+	var	1
+	line	45
+	colm	33
+	synt	any
+	invoke	1
+	line	45
+	colm	28
+	synt	any
+	invoke	1
+	line	45
+	colm	22
+	synt	any
+	asgn
+lab L21
+	line	40
+	colm	13
+	synt	endifelse
+	unmark
+lab L19
+	line	47
+	colm	13
+	synt	if
+	mark0
+	pnull
+	var	7
+	int	3
+	line	47
+	colm	19
+	synt	any
+	numeq
+	unmark
+	mark	L23
+	pnull
+	var	9
+	line	48
+	colm	29
+	synt	any
+	keywd	null
+	line	48
+	colm	26
+	synt	any
+	asgn
+	unmark
+lab L23
+	mark	L24
+	pnull
+	var	10
+	line	49
+	colm	24
+	synt	any
+	keywd	null
+	line	49
+	colm	21
+	synt	any
+	asgn
+	unmark
+lab L24
+	mark	L25
+lab L26
+	line	50
+	colm	16
+	synt	while
+	mark0
+	var	22
+	var	23
+	var	1
+	line	50
+	colm	31
+	synt	any
+	invoke	1
+	line	50
+	colm	26
+	synt	any
+	invoke	1
+	pop
+	pnull
+	var	10
+	line	50
+	colm	47
+	synt	any
+	null
+	unmark
+	mark	L26
+	mark	L29
+	line	51
+	colm	19
+	synt	ifelse
+	mark	L30
+	pnull
+	var	9
+	line	51
+	colm	22
+	synt	any
+	nonnull
+	unmark
+	pnull
+	var	10
+	pnull
+	var	26
+	line	51
+	colm	46
+	synt	any
+	tabmat
+	line	51
+	colm	43
+	synt	any
+	asgn
+	goto	L31
+lab L30
+	pnull
+	var	9
+	pnull
+	var	27
+	line	52
+	colm	37
+	synt	any
+	tabmat
+	line	52
+	colm	34
+	synt	any
+	asgn
+lab L31
+	line	51
+	colm	19
+	synt	endifelse
+	unmark
+lab L29
+	var	22
+	var	23
+	str	8
+	line	53
+	colm	27
+	synt	any
+	invoke	1
+	line	53
+	colm	22
+	synt	any
+	invoke	1
+lab L27
+	unmark
+	goto	L26
+lab L28
+	line	50
+	colm	16
+	synt	endwhile
+	unmark
+lab L25
+	mark	L32
+	var	19
+	pnull
+	pnull
+	pnull
+	pnull
+	var	6
+	str	2
+	line	55
+	colm	24
+	synt	any
+	cat
+	var	9
+	line	55
+	colm	32
+	synt	any
+	cat
+	str	2
+	line	55
+	colm	45
+	synt	any
+	cat
+	var	10
+	line	55
+	colm	53
+	synt	any
+	cat
+	line	55
+	colm	21
+	synt	any
+	invoke	1
+	unmark
+lab L32
+	mark	L33
+	pnull
+	var	11
+	var	28
+	var	29
+	var	30
+	var	31
+	var	32
+	var	33
+	line	57
+	colm	40
+	synt	any
+	invoke	5
+	line	57
+	colm	22
+	synt	any
+	asgn
+	unmark
+lab L33
+	mark	L34
+	pnull
+	var	12
+	var	34
+	var	11
+	var	10
+	line	58
+	colm	41
+	synt	any
+	invoke	2
+	line	58
+	colm	22
+	synt	any
+	asgn
+	unmark
+lab L34
+	mark	L35
+	pnull
+	var	13
+	var	18
+	line	60
+	colm	41
+	synt	any
+	invoke	0
+	line	60
+	colm	25
+	synt	any
+	asgn
+	unmark
+lab L35
+	mark	L36
+	pnull
+	var	13
+	line	61
+	colm	24
+	synt	any
+	field	calcLocation
+	pnull
+	var	2
+	var	6
+	line	61
+	colm	44
+	synt	any
+	subsc
+	var	12
+	line	61
+	colm	37
+	synt	any
+	invoke	2
+	unmark
+lab L36
+	mark	L37
+	var	17
+	var	2
+	var	13
+	line	62
+	colm	19
+	synt	any
+	invoke	2
+	unmark
+lab L37
+	mark	L38
+	pnull
+	var	3
+	dup
+	pnull
+	var	12
+	line	63
+	colm	31
+	synt	any
+	field	dist
+	line	63
+	colm	22
+	synt	any
+	plus
+	asgn
+	unmark
+lab L38
+	mark	L39
+	var	19
+	pnull
+	pnull
+	pnull
+	str	6
+	pnull
+	pnull
+	var	2
+	pnull
+	var	6
+	int	3
+	line	64
+	colm	39
+	synt	any
+	plus
+	line	64
+	colm	36
+	synt	any
+	subsc
+	line	64
+	colm	43
+	synt	any
+	field	northing
+	line	64
+	colm	27
+	synt	any
+	cat
+	str	7
+	line	64
+	colm	53
+	synt	any
+	cat
+	pnull
+	pnull
+	var	2
+	pnull
+	var	6
+	int	3
+	line	64
+	colm	75
+	synt	any
+	plus
+	line	64
+	colm	72
+	synt	any
+	subsc
+	line	64
+	colm	79
+	synt	any
+	field	easting
+	line	64
+	colm	63
+	synt	any
+	cat
+	line	64
+	colm	21
+	synt	any
+	invoke	1
+	unmark
+lab L39
+	pnull
+	var	7
+	int	1
+	line	65
+	colm	19
+	synt	any
+	asgn
+	line	47
+	colm	13
+	synt	endif
+lab L17
+	unmark
+	goto	L16
+lab L18
+	line	39
+	colm	10
+	synt	endwhile
+	line	38
+	colm	12
+	synt	any
+	escan
+	unmark
+lab L12
+	efail
+lab L13
+	line	35
+	colm	4
+	synt	endevery
+	unmark
+lab L11
+	mark	L40
+	pnull
+	var	14
+	var	35
+	pnull
+	pnull
+	pnull
+	pnull
+	pnull
+	var	2
+	int	3
+	line	71
+	colm	29
+	synt	any
+	subsc
+	line	71
+	colm	32
+	synt	any
+	field	northing
+	pnull
+	pnull
+	var	2
+	pnull
+	var	2
+	line	71
+	colm	51
+	synt	any
+	size
+	line	71
+	colm	50
+	synt	any
+	subsc
+	line	71
+	colm	59
+	synt	any
+	field	northing
+	line	71
+	colm	42
+	synt	any
+	minus
+	int	9
+	line	71
+	colm	70
+	synt	any
+	power
+	pnull
+	pnull
+	pnull
+	pnull
+	var	2
+	int	3
+	line	71
+	colm	83
+	synt	any
+	subsc
+	line	71
+	colm	86
+	synt	any
+	field	easting
+	pnull
+	pnull
+	var	2
+	pnull
+	var	2
+	line	71
+	colm	104
+	synt	any
+	size
+	line	71
+	colm	103
+	synt	any
+	subsc
+	line	71
+	colm	112
+	synt	any
+	field	easting
+	line	71
+	colm	95
+	synt	any
+	minus
+	int	9
+	line	71
+	colm	122
+	synt	any
+	power
+	line	71
+	colm	74
+	synt	any
+	plus
+	line	71
+	colm	21
+	synt	any
+	invoke	1
+	line	71
+	colm	14
+	synt	any
+	asgn
+	unmark
+lab L40
+	mark	L41
+	pnull
+	var	15
+	pnull
+	int	3
+	pnull
+	var	14
+	var	3
+	line	72
+	colm	28
+	synt	any
+	div
+	line	72
+	colm	15
+	synt	any
+	div
+	line	72
+	colm	10
+	synt	any
+	asgn
+	unmark
+lab L41
+	mark	L42
+	var	19
+	pnull
+	str	10
+	var	14
+	line	73
+	colm	31
+	synt	any
+	cat
+	line	73
+	colm	9
+	synt	any
+	invoke	1
+	unmark
+lab L42
+	mark	L43
+	var	19
+	pnull
+	str	11
+	var	15
+	line	74
+	colm	31
+	synt	any
+	cat
+	line	74
+	colm	9
+	synt	any
+	invoke	1
+	unmark
+lab L43
+	pnull
+	line	75
+	colm	1
+	synt	any
+	pfail
+	end
+proc reader__initializePatterns
+	local	0,000000,reader__north
+	local	1,000000,pattern_alternate
+	local	2,000000,Any
+	local	3,000000,reader__south
+	local	4,000000,reader__east
+	local	5,000000,reader__west
+	local	6,000000,reader__northsouth
+	local	7,000000,reader__eastwest
+	local	8,000000,reader__sixty
+	local	9,000000,reader__ninety
+	local	10,000000,reader__digitx
+	local	11,000000,Span
+	local	12,000000,reader__digit2
+	local	13,000000,reader__degree
+	local	14,000000,reader__bearing
+	local	15,000000,pattern_assign_immediate
+	local	16,000000,reader__ns
+	local	17,000000,reader__degrees
+	local	18,000000,reader__minutes
+	local	19,000000,reader__seconds
+	local	20,000000,reader__ew
+	local	21,000000,reader__units
+	local	22,000000,reader__distance
+	local	23,000000,reader__thence
+	con	0,010000,2,116,156
+	con	1,010000,5,116,157,162,164,150
+	con	2,010000,2,123,163
+	con	3,010000,5,123,157,165,164,150
+	con	4,010000,2,105,145
+	con	5,010000,4,105,141,163,164
+	con	6,010000,2,127,167
+	con	7,010000,4,127,145,163,164
+	con	8,010000,6,060,061,062,063,064,065
+	con	9,010000,10,040,060,061,062,063,064,065,066,067,070
+	con	10,010000,2,071,060
+	con	11,010000,3,045,045,144
+	con	12,010000,1,144
+	con	13,010000,1,370
+	con	14,010000,10,162,145,141,144,145,162,137,137,156,163
+	con	15,010000,1,040
+	con	16,010000,15,162,145,141,144,145,162,137,137,144,145,147,162,145,145,163
+	con	17,010000,15,162,145,141,144,145,162,137,137,155,151,156,165,164,145,163
+	con	18,010000,1,047
+	con	19,010000,15,162,145,141,144,145,162,137,137,163,145,143,157,156,144,163
+	con	20,010000,2,042,040
+	con	21,010000,10,162,145,141,144,145,162,137,137,145,167
+	con	22,010000,4,146,145,145,164
+	con	23,010000,4,162,157,144,163
+	con	24,010000,6,143,150,141,151,156,163
+	con	25,010000,5,154,151,156,153,163
+	con	26,010000,6,155,145,164,145,162,163
+	con	27,010000,1,056
+	con	28,010000,2,060,056
+	con	29,010000,6,164,150,145,156,143,145
+	con	30,010000,6,124,150,145,156,143,145
+	declend
+	line	77
+	colm	12
+	synt	any
+	mark	L1
+	pnull
+	var	0
+	var	1
+	var	2
+	str	0
+	line	78
+	colm	42
+	synt	any
+	invoke	1
+	str	1
+	line	78
+	colm	37
+	synt	any
+	invoke	2
+	line	78
+	colm	17
+	synt	any
+	asgn
+	unmark
+lab L1
+	mark	L2
+	pnull
+	var	3
+	var	1
+	var	2
+	str	2
+	line	79
+	colm	42
+	synt	any
+	invoke	1
+	str	3
+	line	79
+	colm	37
+	synt	any
+	invoke	2
+	line	79
+	colm	17
+	synt	any
+	asgn
+	unmark
+lab L2
+	mark	L3
+	pnull
+	var	4
+	var	1
+	var	2
+	str	4
+	line	80
+	colm	41
+	synt	any
+	invoke	1
+	str	5
+	line	80
+	colm	36
+	synt	any
+	invoke	2
+	line	80
+	colm	16
+	synt	any
+	asgn
+	unmark
+lab L3
+	mark	L4
+	pnull
+	var	5
+	var	1
+	var	2
+	str	6
+	line	81
+	colm	41
+	synt	any
+	invoke	1
+	str	7
+	line	81
+	colm	36
+	synt	any
+	invoke	2
+	line	81
+	colm	16
+	synt	any
+	asgn
+	unmark
+lab L4
+	mark	L5
+	pnull
+	var	6
+	var	1
+	var	0
+	var	3
+	line	82
+	colm	42
+	synt	any
+	invoke	2
+	line	82
+	colm	22
+	synt	any
+	asgn
+	unmark
+lab L5
+	mark	L6
+	pnull
+	var	7
+	var	1
+	var	4
+	var	5
+	line	83
+	colm	40
+	synt	any
+	invoke	2
+	line	83
+	colm	20
+	synt	any
+	asgn
+	unmark
+lab L6
+	mark	L7
+	pnull
+	var	8
+	pnull
+	var	2
+	str	8
+	line	84
+	colm	23
+	synt	any
+	invoke	1
+	var	2
+	line	84
+	colm	40
+	synt	any
+	keywd	digits
+	line	84
+	colm	39
+	synt	any
+	invoke	1
+	line	84
+	colm	34
+	synt	any
+	cat
+	line	84
+	colm	17
+	synt	any
+	asgn
+	unmark
+lab L7
+	mark	L8
+	pnull
+	var	9
+	var	1
+	pnull
+	var	2
+	str	9
+	line	85
+	colm	44
+	synt	any
+	invoke	1
+	var	2
+	line	85
+	colm	64
+	synt	any
+	keywd	digits
+	line	85
+	colm	63
+	synt	any
+	invoke	1
+	line	85
+	colm	58
+	synt	any
+	cat
+	str	10
+	line	85
+	colm	38
+	synt	any
+	invoke	2
+	line	85
+	colm	18
+	synt	any
+	asgn
+	unmark
+lab L8
+	mark	L9
+	pnull
+	var	10
+	var	11
+	line	87
+	colm	25
+	synt	any
+	keywd	digits
+	line	87
+	colm	24
+	synt	any
+	invoke	1
+	line	87
+	colm	18
+	synt	any
+	asgn
+	unmark
+lab L9
+	mark	L10
+	pnull
+	var	12
+	pnull
+	var	2
+	line	88
+	colm	24
+	synt	any
+	keywd	digits
+	line	88
+	colm	23
+	synt	any
+	invoke	1
+	var	2
+	line	88
+	colm	38
+	synt	any
+	keywd	digits
+	line	88
+	colm	37
+	synt	any
+	invoke	1
+	line	88
+	colm	32
+	synt	any
+	cat
+	line	88
+	colm	18
+	synt	any
+	asgn
+	unmark
+lab L10
+	mark	L11
+	pnull
+	var	13
+	var	1
+	var	1
+	str	11
+	str	12
+	line	90
+	colm	58
+	synt	any
+	invoke	2
+	str	13
+	line	90
+	colm	38
+	synt	any
+	invoke	2
+	line	90
+	colm	18
+	synt	any
+	asgn
+	unmark
+lab L11
+	mark	L12
+	pnull
+	var	14
+	pnull
+	pnull
+	pnull
+	pnull
+	pnull
+	pnull
+	pnull
+	pnull
+	var	15
+	var	6
+	var	16
+	str	14
+	line	91
+	colm	46
+	synt	any
+	invoke	3
+	str	15
+	line	91
+	colm	93
+	synt	any
+	cat
+	var	15
+	var	9
+	var	17
+	str	16
+	line	91
+	colm	125
+	synt	any
+	invoke	3
+	line	91
+	colm	98
+	synt	any
+	cat
+	var	13
+	line	91
+	colm	178
+	synt	any
+	cat
+	var	15
+	var	8
+	var	18
+	str	17
+	line	91
+	colm	221
+	synt	any
+	invoke	3
+	line	91
+	colm	194
+	synt	any
+	cat
+	str	18
+	line	91
+	colm	273
+	synt	any
+	cat
+	var	15
+	var	8
+	var	19
+	str	19
+	line	91
+	colm	306
+	synt	any
+	invoke	3
+	line	91
+	colm	279
+	synt	any
+	cat
+	str	20
+	line	91
+	colm	358
+	synt	any
+	cat
+	var	15
+	var	7
+	var	20
+	str	21
+	line	91
+	colm	392
+	synt	any
+	invoke	3
+	line	91
+	colm	365
+	synt	any
+	cat
+	line	91
+	colm	19
+	synt	any
+	asgn
+	unmark
+lab L12
+	mark	L13
+	pnull
+	var	21
+	var	1
+	var	1
+	var	1
+	var	1
+	str	22
+	str	23
+	line	92
+	colm	97
+	synt	any
+	invoke	2
+	str	24
+	line	92
+	colm	77
+	synt	any
+	invoke	2
+	str	25
+	line	92
+	colm	57
+	synt	any
+	invoke	2
+	str	26
+	line	92
+	colm	37
+	synt	any
+	invoke	2
+	line	92
+	colm	17
+	synt	any
+	asgn
+	unmark
+lab L13
+	mark	L14
+	pnull
+	var	22
+	var	1
+	var	1
+	var	1
+	var	1
+	var	1
+	var	1
+	pnull
+	pnull
+	pnull
+	pnull
+	var	10
+	str	27
+	line	93
+	colm	157
+	synt	any
+	cat
+	var	12
+	line	93
+	colm	162
+	synt	any
+	cat
+	str	15
+	line	93
+	colm	178
+	synt	any
+	cat
+	var	21
+	line	93
+	colm	183
+	synt	any
+	cat
+	pnull
+	pnull
+	pnull
+	pnull
+	var	10
+	str	27
+	line	94
+	colm	25
+	synt	any
+	cat
+	var	2
+	line	94
+	colm	36
+	synt	any
+	keywd	digits
+	line	94
+	colm	35
+	synt	any
+	invoke	1
+	line	94
+	colm	30
+	synt	any
+	cat
+	str	15
+	line	94
+	colm	44
+	synt	any
+	cat
+	var	21
+	line	94
+	colm	49
+	synt	any
+	cat
+	line	93
+	colm	140
+	synt	any
+	invoke	2
+	pnull
+	pnull
+	var	10
+	str	15
+	line	95
+	colm	25
+	synt	any
+	cat
+	var	21
+	line	95
+	colm	30
+	synt	any
+	cat
+	line	93
+	colm	120
+	synt	any
+	invoke	2
+	pnull
+	pnull
+	pnull
+	str	28
+	var	12
+	line	96
+	colm	16
+	synt	any
+	cat
+	str	15
+	line	96
+	colm	33
+	synt	any
+	cat
+	var	21
+	line	96
+	colm	38
+	synt	any
+	cat
+	line	93
+	colm	100
+	synt	any
+	invoke	2
+	pnull
+	pnull
+	pnull
+	str	28
+	var	2
+	line	97
+	colm	23
+	synt	any
+	keywd	digits
+	line	97
+	colm	22
+	synt	any
+	invoke	1
+	line	97
+	colm	16
+	synt	any
+	cat
+	str	15
+	line	97
+	colm	32
+	synt	any
+	cat
+	var	21
+	line	97
+	colm	39
+	synt	any
+	cat
+	line	93
+	colm	80
+	synt	any
+	invoke	2
+	pnull
+	pnull
+	pnull
+	str	27
+	var	12
+	line	98
+	colm	15
+	synt	any
+	cat
+	str	15
+	line	98
+	colm	32
+	synt	any
+	cat
+	var	21
+	line	98
+	colm	37
+	synt	any
+	cat
+	line	93
+	colm	60
+	synt	any
+	invoke	2
+	pnull
+	pnull
+	pnull
+	str	27
+	var	2
+	line	99
+	colm	22
+	synt	any
+	keywd	digits
+	line	99
+	colm	21
+	synt	any
+	invoke	1
+	line	99
+	colm	15
+	synt	any
+	cat
+	str	15
+	line	99
+	colm	31
+	synt	any
+	cat
+	var	21
+	line	99
+	colm	38
+	synt	any
+	cat
+	line	93
+	colm	40
+	synt	any
+	invoke	2
+	line	93
+	colm	20
+	synt	any
+	asgn
+	unmark
+lab L14
+	mark	L15
+	pnull
+	var	23
+	var	1
+	str	29
+	str	30
+	line	100
+	colm	38
+	synt	any
+	invoke	2
+	line	100
+	colm	18
+	synt	any
+	asgn
+	unmark
+lab L15
+	pnull
+	line	101
+	colm	1
+	synt	any
+	pfail
+	end
+proc reader__bearingToRad
+	local	0,001000,bearng
+	local	1,000020,degr
+	local	2,000000,reader__north
+	local	3,000000,reader__east
+	local	4,000000,reader__toRad
+	local	5,000000,reader__minutes
+	local	6,000000,reader__seconds
+	con	0,004000,0.0
+	con	1,004000,180.0
+	declend
+	line	103
+	colm	12
+	synt	any
+	mark	L1
+	pnull
+	var	0
+	line	107
+	colm	10
+	synt	any
+	field	ns
+	line	107
+	colm	14
+	synt	any
+	bscan
+	line	108
+	colm	7
+	synt	ifelse
+	mark	L2
+	pnull
+	var	2
+	line	108
+	colm	10
+	synt	any
+	tabmat
+	unmark
+	mark	L4
+	pnull
+	var	1
+	real	0
+	line	109
+	colm	15
+	synt	any
+	asgn
+	unmark
+lab L4
+	pnull
+	var	0
+	line	110
+	colm	16
+	synt	any
+	field	ew
+	line	110
+	colm	20
+	synt	any
+	bscan
+	line	111
+	colm	13
+	synt	ifelse
+	mark	L5
+	pnull
+	var	3
+	line	111
+	colm	16
+	synt	any
+	tabmat
+	unmark
+	pnull
+	var	1
+	pnull
+	var	0
+	line	111
+	colm	47
+	synt	any
+	field	deg
+	line	111
+	colm	39
+	synt	any
+	asgn
+	goto	L6
+lab L5
+	pnull
+	var	1
+	dup
+	pnull
+	var	0
+	line	112
+	colm	33
+	synt	any
+	field	deg
+	line	112
+	colm	23
+	synt	any
+	minus
+	asgn
+lab L6
+	line	111
+	colm	13
+	synt	endifelse
+	line	110
+	colm	20
+	synt	any
+	escan
+	goto	L3
+lab L2
+	mark	L7
+	pnull
+	var	1
+	real	1
+	line	115
+	colm	15
+	synt	any
+	asgn
+	unmark
+lab L7
+	pnull
+	var	0
+	line	116
+	colm	16
+	synt	any
+	field	ew
+	line	116
+	colm	20
+	synt	any
+	bscan
+	line	117
+	colm	13
+	synt	ifelse
+	mark	L8
+	pnull
+	var	3
+	line	117
+	colm	16
+	synt	any
+	tabmat
+	unmark
+	pnull
+	var	1
+	dup
+	pnull
+	var	0
+	line	117
+	colm	48
+	synt	any
+	field	deg
+	line	117
+	colm	39
+	synt	any
+	minus
+	asgn
+	goto	L9
+lab L8
+	pnull
+	var	1
+	dup
+	pnull
+	var	0
+	line	118
+	colm	33
+	synt	any
+	field	deg
+	line	118
+	colm	23
+	synt	any
+	plus
+	asgn
+lab L9
+	line	117
+	colm	13
+	synt	endifelse
+	line	116
+	colm	20
+	synt	any
+	escan
+lab L3
+	line	108
+	colm	7
+	synt	endifelse
+	line	107
+	colm	14
+	synt	any
+	escan
+	unmark
+lab L1
+	mark	L10
+	mark	L11
+	var	4
+	var	1
+	var	5
+	var	6
+	line	121
+	colm	24
+	synt	any
+	invoke	3
+	line	121
+	colm	4
+	synt	any
+	pret
+lab L11
+	synt	any
+	pfail
+	unmark
+lab L10
+	pnull
+	line	122
+	colm	1
+	synt	any
+	pfail
+	end
+proc reader__toRad
+	local	0,001000,deg
+	local	1,001000,mins
+	local	2,001000,secs
+	local	3,000020,degr
+	local	4,000020,minutes
+	local	5,000020,seconds
+	con	0,004000,0.0
+	con	1,004000,90.0
+	con	2,004000,360.0
+	con	3,004000,60.0
+	con	4,002000,2,60
+	con	5,004000,3600.0
+	con	6,004000,180.0
+	declend
+	line	124
+	colm	12
+	synt	any
+	mark	L1
+	line	130
+	colm	4
+	synt	if
+	mark0
+	pnull
+	var	1
+	line	130
+	colm	7
+	synt	any
+	null
+	unmark
+	pnull
+	var	1
+	real	0
+	line	130
+	colm	23
+	synt	any
+	asgn
+	line	130
+	colm	4
+	synt	endif
+	unmark
+lab L1
+	mark	L2
+	line	131
+	colm	4
+	synt	if
+	mark0
+	pnull
+	var	2
+	line	131
+	colm	7
+	synt	any
+	null
+	unmark
+	pnull
+	var	2
+	real	0
+	line	131
+	colm	23
+	synt	any
+	asgn
+	line	131
+	colm	4
+	synt	endif
+	unmark
+lab L2
+	mark	L3
+	pnull
+	var	3
+	pnull
+	real	1
+	var	0
+	line	132
+	colm	17
+	synt	any
+	minus
+	line	132
+	colm	9
+	synt	any
+	asgn
+	unmark
+lab L3
+	mark	L4
+	line	133
+	colm	4
+	synt	if
+	mark0
+	pnull
+	var	3
+	real	0
+	line	133
+	colm	12
+	synt	any
+	numlt
+	unmark
+	pnull
+	var	3
+	dup
+	real	2
+	line	133
+	colm	28
+	synt	any
+	plus
+	asgn
+	line	133
+	colm	4
+	synt	endif
+	unmark
+lab L4
+	mark	L5
+	pnull
+	var	4
+	pnull
+	real	3
+	var	1
+	line	134
+	colm	20
+	synt	any
+	minus
+	line	134
+	colm	12
+	synt	any
+	asgn
+	unmark
+lab L5
+	mark	L6
+	line	135
+	colm	4
+	synt	if
+	mark0
+	pnull
+	var	4
+	real	3
+	line	135
+	colm	15
+	synt	any
+	numeq
+	unmark
+	pnull
+	var	4
+	real	0
+	line	135
+	colm	35
+	synt	any
+	asgn
+	line	135
+	colm	4
+	synt	endif
+	unmark
+lab L6
+	mark	L7
+	pnull
+	var	5
+	pnull
+	real	3
+	var	2
+	line	136
+	colm	20
+	synt	any
+	minus
+	line	136
+	colm	12
+	synt	any
+	asgn
+	unmark
+lab L7
+	mark	L8
+	line	137
+	colm	4
+	synt	if
+	mark0
+	pnull
+	var	5
+	int	4
+	line	137
+	colm	15
+	synt	any
+	numeq
+	unmark
+	pnull
+	var	5
+	real	0
+	line	137
+	colm	33
+	synt	any
+	asgn
+	line	137
+	colm	4
+	synt	endif
+	unmark
+lab L8
+	mark	L9
+	line	138
+	colm	4
+	synt	if
+	mark0
+	pnull
+	var	4
+	line	138
+	colm	7
+	synt	any
+	nonnull
+	unmark
+	pnull
+	var	3
+	dup
+	pnull
+	var	4
+	real	3
+	line	138
+	colm	38
+	synt	any
+	div
+	line	138
+	colm	26
+	synt	any
+	plus
+	asgn
+	line	138
+	colm	4
+	synt	endif
+	unmark
+lab L9
+	mark	L10
+	line	139
+	colm	4
+	synt	if
+	mark0
+	pnull
+	var	5
+	line	139
+	colm	7
+	synt	any
+	nonnull
+	unmark
+	pnull
+	var	3
+	dup
+	pnull
+	var	5
+	real	5
+	line	139
+	colm	38
+	synt	any
+	div
+	line	139
+	colm	26
+	synt	any
+	plus
+	asgn
+	line	139
+	colm	4
+	synt	endif
+	unmark
+lab L10
+	mark	L11
+	mark	L12
+	pnull
+	pnull
+	var	3
+	real	6
+	line	140
+	colm	17
+	synt	any
+	div
+	line	140
+	colm	28
+	synt	any
+	keywd	pi
+	line	140
+	colm	26
+	synt	any
+	mult
+	line	140
+	colm	4
+	synt	any
+	pret
+lab L12
+	synt	any
+	pfail
+	unmark
+lab L11
+	pnull
+	line	141
+	colm	2
+	synt	any
+	pfail
+	end
+proc reader__Boundary_getDist
+	local	0,001000,self
+	local	1,001000,d
+	local	2,000020,ch
+	local	3,000020,distan
+	local	4,000000,tab
+	local	5,000000,many
+	local	6,000000,integer
+	con	0,020000,1,056
+	declend
+	line	144
+	colm	11
+	synt	any
+	mark	L1
+	pnull
+	var	2
+	pnull
+	line	149
+	colm	13
+	synt	any
+	keywd	digits
+	cset	0
+	line	149
+	colm	21
+	synt	any
+	unions
+	line	149
+	colm	10
+	synt	any
+	asgn
+	unmark
+lab L1
+	mark	L2
+	var	1
+	line	150
+	colm	9
+	synt	any
+	bscan
+	pnull
+	var	3
+	var	4
+	var	5
+	var	2
+	line	150
+	colm	29
+	synt	any
+	invoke	1
+	line	150
+	colm	24
+	synt	any
+	invoke	1
+	line	150
+	colm	18
+	synt	any
+	asgn
+	line	150
+	colm	9
+	synt	any
+	escan
+	unmark
+lab L2
+	mark	L3
+	pnull
+	pnull
+	var	0
+	line	151
+	colm	11
+	synt	any
+	field	dist
+	var	6
+	var	3
+	line	151
+	colm	25
+	synt	any
+	invoke	1
+	line	151
+	colm	16
+	synt	any
+	asgn
+	unmark
+lab L3
+	pnull
+	line	152
+	colm	1
+	synt	any
+	pfail
+	end
+proc reader__Boundary_initially
+	local	0,001000,self
+	local	1,001000,bearng
+	local	2,001000,d
+	local	3,000000,reader__bearingToRad
+	declend
+	line	154
+	colm	11
+	synt	any
+	mark	L1
+	pnull
+	pnull
+	var	0
+	line	155
+	colm	8
+	synt	any
+	field	bearing
+	var	1
+	line	155
+	colm	16
+	synt	any
+	asgn
+	unmark
+lab L1
+	mark	L2
+	pnull
+	pnull
+	var	0
+	line	156
+	colm	8
+	synt	any
+	field	radians
+	var	3
+	pnull
+	var	0
+	line	156
+	colm	43
+	synt	any
+	field	bearing
+	line	156
+	colm	38
+	synt	any
+	invoke	1
+	line	156
+	colm	16
+	synt	any
+	asgn
+	unmark
+lab L2
+	mark	L3
+	pnull
+	pnull
+	var	0
+	line	157
+	colm	8
+	synt	any
+	field	dist
+	pnull
+	var	0
+	line	157
+	colm	19
+	synt	any
+	field	getDist
+	var	2
+	line	157
+	colm	27
+	synt	any
+	invoke	1
+	line	157
+	colm	13
+	synt	any
+	asgn
+	unmark
+lab L3
+	mark	L4
+	mark	L5
+	pnull
+	line	158
+	colm	7
+	synt	any
+	pret
+lab L5
+	synt	any
+	pfail
+	unmark
+lab L4
+	pnull
+	line	159
+	colm	1
+	synt	any
+	pfail
+	end
+proc reader__Boundary
+	local	0,001000,bearng
+	local	1,001000,d
+	local	2,000020,self
+	local	3,000020,clone
+	local	4,000000,reader__Boundary__oprec
+	local	5,000000,reader__Boundaryinitialize
+	local	6,000000,reader__Boundary__state
+	declend
+	line	163
+	colm	11
+	synt	any
+lab L1
+	init	L3
+	mark	L2
+	line	166
+	colm	3
+	synt	if
+	mark0
+	pnull
+	var	4
+	line	166
+	colm	6
+	synt	any
+	null
+	unmark
+	var	5
+	line	166
+	colm	62
+	synt	any
+	invoke	0
+	line	166
+	colm	3
+	synt	endif
+	unmark
+lab L2
+	einit	L1
+lab L3
+	mark	L4
+	pnull
+	var	2
+	var	6
+	line	168
+	colm	35
+	synt	any
+	keywd	null
+	var	4
+	line	168
+	colm	34
+	synt	any
+	invoke	2
+	line	168
+	colm	8
+	synt	any
+	asgn
+	unmark
+lab L4
+	mark	L5
+	pnull
+	pnull
+	var	2
+	line	169
+	colm	7
+	synt	any
+	field	__s
+	var	2
+	line	169
+	colm	12
+	synt	any
+	asgn
+	unmark
+lab L5
+	mark	L6
+	mark	L7
+	pnull
+	pnull
+	var	2
+	line	170
+	colm	7
+	synt	any
+	field	__m
+	line	170
+	colm	11
+	synt	any
+	field	initially
+	var	2
+	var	0
+	var	1
+	line	170
+	colm	21
+	synt	any
+	invoke	3
+	line	170
+	colm	37
+	synt	any
+	esusp
+	goto	L8
+lab L7
+	line	170
+	colm	39
+	synt	any
+	pfail
+lab L8
+	unmark
+lab L6
+	mark	L9
+	mark	L10
+	var	2
+	line	171
+	colm	3
+	synt	any
+	pret
+lab L10
+	synt	any
+	pfail
+	unmark
+lab L9
+	pnull
+	line	172
+	colm	1
+	synt	any
+	pfail
+	end
+proc reader__Boundaryinitialize
+	local	0,000000,reader__Boundary__oprec
+	local	1,000000,reader__Boundary__methods
+	local	2,000000,reader__Boundary_getDist
+	local	3,000000,reader__Boundary_initially
+	declend
+	line	174
+	colm	11
+	synt	any
+lab L1
+	init	L3
+	mark	L2
+	pnull
+	var	0
+	var	1
+	var	2
+	var	3
+	line	175
+	colm	63
+	synt	any
+	invoke	2
+	line	175
+	colm	35
+	synt	any
+	asgn
+	unmark
+lab L2
+	einit	L1
+lab L3
+	line	176
+	colm	1
+	synt	any
+	pfail
+	end
+proc reader__Bearing_initially
+	local	0,001000,self
+	local	1,001000,norsou
+	local	2,001000,degr
+	local	3,001000,mins
+	local	4,001000,secs
+	local	5,001000,easwes
+	declend
+	line	162
+	colm	11
+	synt	any
+	mark	L1
+	pnull
+	pnull
+	var	0
+	line	163
+	colm	8
+	synt	any
+	field	ns
+	var	1
+	line	163
+	colm	11
+	synt	any
+	asgn
+	unmark
+lab L1
+	mark	L2
+	pnull
+	pnull
+	var	0
+	line	164
+	colm	8
+	synt	any
+	field	deg
+	var	2
+	line	164
+	colm	12
+	synt	any
+	asgn
+	unmark
+lab L2
+	mark	L3
+	pnull
+	pnull
+	var	0
+	line	165
+	colm	8
+	synt	any
+	field	min
+	var	3
+	line	165
+	colm	12
+	synt	any
+	asgn
+	unmark
+lab L3
+	mark	L4
+	pnull
+	pnull
+	var	0
+	line	166
+	colm	8
+	synt	any
+	field	sec
+	var	4
+	line	166
+	colm	12
+	synt	any
+	asgn
+	unmark
+lab L4
+	mark	L5
+	pnull
+	pnull
+	var	0
+	line	167
+	colm	8
+	synt	any
+	field	ew
+	var	5
+	line	167
+	colm	11
+	synt	any
+	asgn
+	unmark
+lab L5
+	mark	L6
+	mark	L7
+	pnull
+	line	168
+	colm	7
+	synt	any
+	pret
+lab L7
+	synt	any
+	pfail
+	unmark
+lab L6
+	pnull
+	line	169
+	colm	1
+	synt	any
+	pfail
+	end
+proc reader__Bearing
+	local	0,001000,norsou
+	local	1,001000,degr
+	local	2,001000,mins
+	local	3,001000,secs
+	local	4,001000,easwes
+	local	5,000020,self
+	local	6,000020,clone
+	local	7,000000,reader__Bearing__oprec
+	local	8,000000,reader__Bearinginitialize
+	local	9,000000,reader__Bearing__state
+	declend
+	line	173
+	colm	11
+	synt	any
+lab L1
+	init	L3
+	mark	L2
+	line	176
+	colm	3
+	synt	if
+	mark0
+	pnull
+	var	7
+	line	176
+	colm	6
+	synt	any
+	null
+	unmark
+	var	8
+	line	176
+	colm	60
+	synt	any
+	invoke	0
+	line	176
+	colm	3
+	synt	endif
+	unmark
+lab L2
+	einit	L1
+lab L3
+	mark	L4
+	pnull
+	var	5
+	var	9
+	line	178
+	colm	34
+	synt	any
+	keywd	null
+	var	7
+	line	178
+	colm	33
+	synt	any
+	invoke	2
+	line	178
+	colm	8
+	synt	any
+	asgn
+	unmark
+lab L4
+	mark	L5
+	pnull
+	pnull
+	var	5
+	line	179
+	colm	7
+	synt	any
+	field	__s
+	var	5
+	line	179
+	colm	12
+	synt	any
+	asgn
+	unmark
+lab L5
+	mark	L6
+	mark	L7
+	pnull
+	pnull
+	var	5
+	line	180
+	colm	7
+	synt	any
+	field	__m
+	line	180
+	colm	11
+	synt	any
+	field	initially
+	var	5
+	var	0
+	var	1
+	var	2
+	var	3
+	var	4
+	line	180
+	colm	21
+	synt	any
+	invoke	6
+	line	180
+	colm	57
+	synt	any
+	esusp
+	goto	L8
+lab L7
+	line	180
+	colm	59
+	synt	any
+	pfail
+lab L8
+	unmark
+lab L6
+	mark	L9
+	mark	L10
+	var	5
+	line	181
+	colm	3
+	synt	any
+	pret
+lab L10
+	synt	any
+	pfail
+	unmark
+lab L9
+	pnull
+	line	182
+	colm	1
+	synt	any
+	pfail
+	end
+proc reader__Bearinginitialize
+	local	0,000000,reader__Bearing__oprec
+	local	1,000000,reader__Bearing__methods
+	local	2,000000,reader__Bearing_initially
+	declend
+	line	184
+	colm	11
+	synt	any
+lab L1
+	init	L3
+	mark	L2
+	pnull
+	var	0
+	var	1
+	var	2
+	line	185
+	colm	61
+	synt	any
+	invoke	1
+	line	185
+	colm	34
+	synt	any
+	asgn
+	unmark
+lab L2
+	einit	L1
+lab L3
+	line	186
+	colm	1
+	synt	any
+	pfail
+	end
+proc reader__Point_calcLocation
+	local	0,001000,self
+	local	1,001000,parent
+	local	2,001000,bound
+	local	3,000000,cos
+	local	4,000000,sin
+	declend
+	line	171
+	colm	11
+	synt	any
+	mark	L1
+	pnull
+	pnull
+	var	0
+	line	172
+	colm	11
+	synt	any
+	field	northing
+	pnull
+	pnull
+	var	1
+	line	172
+	colm	28
+	synt	any
+	field	northing
+	pnull
+	pnull
+	var	2
+	line	172
+	colm	43
+	synt	any
+	field	dist
+	var	3
+	pnull
+	var	2
+	line	172
+	colm	59
+	synt	any
+	field	radians
+	line	172
+	colm	53
+	synt	any
+	invoke	1
+	line	172
+	colm	48
+	synt	any
+	mult
+	line	172
+	colm	37
+	synt	any
+	plus
+	line	172
+	colm	20
+	synt	any
+	asgn
+	unmark
+lab L1
+	mark	L2
+	pnull
+	pnull
+	var	0
+	line	173
+	colm	11
+	synt	any
+	field	easting
+	pnull
+	pnull
+	var	1
+	line	173
+	colm	27
+	synt	any
+	field	easting
+	pnull
+	pnull
+	var	2
+	line	173
+	colm	41
+	synt	any
+	field	dist
+	var	4
+	pnull
+	var	2
+	line	173
+	colm	57
+	synt	any
+	field	radians
+	line	173
+	colm	51
+	synt	any
+	invoke	1
+	line	173
+	colm	46
+	synt	any
+	mult
+	line	173
+	colm	35
+	synt	any
+	plus
+	line	173
+	colm	19
+	synt	any
+	asgn
+	unmark
+lab L2
+	pnull
+	line	174
+	colm	1
+	synt	any
+	pfail
+	end
+proc reader__Point_initially
+	local	0,001000,self
+	con	0,004000,10000.00
+	con	1,004000,5000.00
+	declend
+	line	175
+	colm	11
+	synt	any
+	mark	L1
+	pnull
+	pnull
+	var	0
+	line	176
+	colm	8
+	synt	any
+	field	northing
+	real	0
+	line	176
+	colm	17
+	synt	any
+	asgn
+	unmark
+lab L1
+	mark	L2
+	pnull
+	pnull
+	var	0
+	line	177
+	colm	8
+	synt	any
+	field	easting
+	real	1
+	line	177
+	colm	16
+	synt	any
+	asgn
+	unmark
+lab L2
+	mark	L3
+	mark	L4
+	pnull
+	line	178
+	colm	7
+	synt	any
+	pret
+lab L4
+	synt	any
+	pfail
+	unmark
+lab L3
+	pnull
+	line	179
+	colm	1
+	synt	any
+	pfail
+	end
+proc reader__Point
+	local	0,000020,self
+	local	1,000020,clone
+	local	2,000000,reader__Point__oprec
+	local	3,000000,reader__Pointinitialize
+	local	4,000000,reader__Point__state
+	declend
+	line	183
+	colm	11
+	synt	any
+lab L1
+	init	L3
+	mark	L2
+	line	186
+	colm	3
+	synt	if
+	mark0
+	pnull
+	var	2
+	line	186
+	colm	6
+	synt	any
+	null
+	unmark
+	var	3
+	line	186
+	colm	56
+	synt	any
+	invoke	0
+	line	186
+	colm	3
+	synt	endif
+	unmark
+lab L2
+	einit	L1
+lab L3
+	mark	L4
+	pnull
+	var	0
+	var	4
+	line	188
+	colm	32
+	synt	any
+	keywd	null
+	var	2
+	line	188
+	colm	31
+	synt	any
+	invoke	2
+	line	188
+	colm	8
+	synt	any
+	asgn
+	unmark
+lab L4
+	mark	L5
+	pnull
+	pnull
+	var	0
+	line	189
+	colm	7
+	synt	any
+	field	__s
+	var	0
+	line	189
+	colm	12
+	synt	any
+	asgn
+	unmark
+lab L5
+	mark	L6
+	mark	L7
+	pnull
+	pnull
+	var	0
+	line	190
+	colm	7
+	synt	any
+	field	__m
+	line	190
+	colm	11
+	synt	any
+	field	initially
+	var	0
+	pnull
+	line	190
+	colm	21
+	synt	any
+	invoke	2
+	line	190
+	colm	29
+	synt	any
+	esusp
+	goto	L8
+lab L7
+	line	190
+	colm	31
+	synt	any
+	pfail
+lab L8
+	unmark
+lab L6
+	mark	L9
+	mark	L10
+	var	0
+	line	191
+	colm	3
+	synt	any
+	pret
+lab L10
+	synt	any
+	pfail
+	unmark
+lab L9
+	pnull
+	line	192
+	colm	1
+	synt	any
+	pfail
+	end
+proc reader__Pointinitialize
+	local	0,000000,reader__Point__oprec
+	local	1,000000,reader__Point__methods
+	local	2,000000,reader__Point_calcLocation
+	local	3,000000,reader__Point_initially
+	declend
+	line	194
+	colm	11
+	synt	any
+lab L1
+	init	L3
+	mark	L2
+	pnull
+	var	0
+	var	1
+	var	2
+	var	3
+	line	195
+	colm	57
+	synt	any
+	invoke	2
+	line	195
+	colm	32
+	synt	any
+	asgn
+	unmark
+lab L2
+	einit	L1
+lab L3
+	line	196
+	colm	1
+	synt	any
+	pfail
+	end
